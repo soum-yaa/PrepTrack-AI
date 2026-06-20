@@ -6,7 +6,7 @@ const primary = { to: '/dashboard', label: 'Overview', icon: '📊', end: true }
 
 const secondary = [
   { to: '/dashboard/tasks', label: 'Tasks', icon: '✅' },
-  { label: 'Career goals', icon: '🚀' },
+  { to: '/dashboard/applications', label: 'Applications', icon: '💼' },
 ];
 
 export function Sidebar({ open, onClose }) {
