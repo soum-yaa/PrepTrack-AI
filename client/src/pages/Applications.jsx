@@ -10,17 +10,20 @@ const STATUSES = [
   "Offer Received",
 ];
 
+const emptyForm = {
+  company: "",
+  role: "",
+  status: "Applied",
+  appliedDate: "",
+  deadline: "",
+  link: "",
+  notes: "",
+};
+
 function Applications() {
   const [applications, setApplications] = useState([]);
-  const [form, setForm] = useState({
-    company: "",
-    role: "",
-    status: "Applied",
-    appliedDate: "",
-    deadline: "",
-    link: "",
-    notes: "",
-  });
+  const [form, setForm] = useState(emptyForm);
+  const [editingId, setEditingId] = useState(null);
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [loading, setLoading] = useState(false);
@@ -43,13 +46,15 @@ function Applications() {
   }, []);
 
   const handleChange = (e) => {
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleCreate = async (e) => {
+  const resetForm = () => {
+    setForm(emptyForm);
+    setEditingId(null);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -59,20 +64,37 @@ function Applications() {
     }
 
     try {
-      const res = await api.post("/api/applications", form);
-      setApplications((prev) => [res.data.application, ...prev]);
-      setForm({
-        company: "",
-        role: "",
-        status: "Applied",
-        appliedDate: "",
-        deadline: "",
-        link: "",
-        notes: "",
-      });
+      if (editingId) {
+        const res = await api.put(`/api/applications/${editingId}`, form);
+        setApplications((prev) =>
+          prev.map((app) =>
+            app._id === editingId ? res.data.application : app
+          )
+        );
+      } else {
+        const res = await api.post("/api/applications", form);
+        setApplications((prev) => [res.data.application, ...prev]);
+      }
+
+      resetForm();
     } catch (err) {
-      setError(err.response?.data?.message || "Failed to create application");
+      setError(err.response?.data?.message || "Failed to save application");
     }
+  };
+
+  const handleEdit = (app) => {
+    setEditingId(app._id);
+    setForm({
+      company: app.company || "",
+      role: app.role || "",
+      status: app.status || "Applied",
+      appliedDate: app.appliedDate ? app.appliedDate.slice(0, 10) : "",
+      deadline: app.deadline ? app.deadline.slice(0, 10) : "",
+      link: app.link || "",
+      notes: app.notes || "",
+    });
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleDelete = async (id) => {
@@ -149,10 +171,12 @@ function Applications() {
       </div>
 
       <form
-        onSubmit={handleCreate}
+        onSubmit={handleSubmit}
         className="rounded-2xl border border-white/10 bg-white/5 p-6"
       >
-        <h2 className="text-xl font-semibold text-white">Add Application</h2>
+        <h2 className="text-xl font-semibold text-white">
+          {editingId ? "Edit Application" : "Add Application"}
+        </h2>
 
         {error && (
           <p className="mt-4 rounded-lg bg-red-500/10 px-4 py-3 text-sm text-red-300">
@@ -221,9 +245,21 @@ function Applications() {
           />
         </div>
 
-        <button className="mt-5 rounded-xl bg-[var(--color-primary)] px-5 py-3 font-semibold text-white">
-          Add Application
-        </button>
+        <div className="mt-5 flex gap-3">
+          <button className="rounded-xl bg-[var(--color-primary)] px-5 py-3 font-semibold text-white">
+            {editingId ? "Update Application" : "Add Application"}
+          </button>
+
+          {editingId && (
+            <button
+              type="button"
+              onClick={resetForm}
+              className="rounded-xl border border-white/10 px-5 py-3 font-semibold text-white"
+            >
+              Cancel
+            </button>
+          )}
+        </div>
       </form>
 
       <div className="flex flex-col gap-4 md:flex-row">
@@ -295,12 +331,21 @@ function Applications() {
                 )}
               </div>
 
-              <button
-                onClick={() => handleDelete(app._id)}
-                className="mt-4 rounded-lg border border-red-400/30 px-4 py-2 text-sm text-red-300 hover:bg-red-500/10"
-              >
-                Delete
-              </button>
+              <div className="mt-4 flex gap-3">
+                <button
+                  onClick={() => handleEdit(app)}
+                  className="rounded-lg border border-blue-400/30 px-4 py-2 text-sm text-blue-300 hover:bg-blue-500/10"
+                >
+                  Edit
+                </button>
+
+                <button
+                  onClick={() => handleDelete(app._id)}
+                  className="rounded-lg border border-red-400/30 px-4 py-2 text-sm text-red-300 hover:bg-red-500/10"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
         </div>
