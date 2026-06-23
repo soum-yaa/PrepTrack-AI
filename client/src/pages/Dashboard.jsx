@@ -204,6 +204,29 @@ export default function Dashboard() {
               label="In Progress"
               value={summary.inProgressTasks}
             />
+            <StatCard
+  icon="💼"
+  label="Applications"
+  value={summary.totalApplications}
+/>
+
+<StatCard
+  icon="🎯"
+  label="Interviews"
+  value={summary.interviews}
+/>
+
+<StatCard
+  icon="🏆"
+  label="Offers"
+  value={summary.offers}
+/>
+
+<StatCard
+  icon="❌"
+  label="Rejections"
+  value={summary.rejections}
+/>
           </div>
 
           <div className="grid gap-4 lg:grid-cols-2">

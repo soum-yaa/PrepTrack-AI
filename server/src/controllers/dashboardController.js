@@ -1,9 +1,12 @@
 const Task = require('../models/Task');
+const Application = require('../models/Application');
 const { asyncHandler } = require('../utils/asyncHandler');
 
 const getSummary = asyncHandler(async (req, res) => {
   const tasks = await Task.find({ createdBy: req.user.id }).sort({ createdAt: -1 });
-
+  const applications = await Application.find({ createdBy: req.user.id }).sort({
+  createdAt: -1,
+});
   const totalTasks = tasks.length;
   const completedTasks = tasks.filter((t) => t.status === 'Completed').length;
   const pendingTasks = tasks.filter((t) => t.status === 'Todo').length;
@@ -38,7 +41,13 @@ const getSummary = asyncHandler(async (req, res) => {
     .slice(0, 5);
 
   const recentTasks = tasks.slice(0, 5);
-
+  const totalApplications = applications.length;
+  const interviews = applications.filter((a) =>
+  a.status.toLowerCase().includes('interview')
+  ).length;
+  const offers = applications.filter((a) => a.status === 'Offer Received').length;
+  const rejections = applications.filter((a) => a.status === 'Rejected').length;
+  const recentApplications = applications.slice(0, 5);
   res.json({
     success: true,
     summary: {
@@ -53,6 +62,11 @@ const getSummary = asyncHandler(async (req, res) => {
       priorityCounts,
       upcomingDeadlines,
       recentTasks,
+      totalApplications,
+      interviews,
+      offers,
+      rejections,
+      recentApplications,
     },
   });
 });
