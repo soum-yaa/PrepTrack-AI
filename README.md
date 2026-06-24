@@ -2,43 +2,71 @@
 
 AI-powered Productivity & Career Management Platform built using the MERN Stack.
 
-PrepTrack AI helps students and job seekers organize their productivity, manage career goals, track preparation progress, and leverage AI-powered assistance for placement and career growth.
+PrepTrack AI helps students and job seekers manage tasks, track job applications, monitor preparation progress, and stay organized throughout their placement journey.
 
 ---
 
-## 🚀 Features
+## 🚀 Live Demo
 
-### Authentication & Security
+Frontend: https://preptrack-ai-900h.onrender.com
+
+Backend API: https://preptrack-ai-backend-1o65.onrender.com
+
+---
+
+## ✨ Features
+
+### 🔐 Authentication & Security
 
 * User Registration
 * User Login
 * JWT Authentication
 * Protected Routes
-* Secure Password Hashing
+* Secure Password Hashing using bcryptjs
 
-### Task Management
+### 📋 Task Management
 
 * Create Tasks
 * Edit Tasks
 * Delete Tasks
 * Task Priorities (Low, Medium, High)
-* Task Status Tracking (Todo, In Progress, Completed)
-* Due Dates
-* Search Tasks
-* Filter by Priority and Status
+* Task Status Tracking
+* Due Date Management
+* Search & Filter Tasks
+* Responsive Task Dashboard
 
-### Dashboard
+### 💼 Application Tracker
 
-* Personalized Dashboard
-* Responsive Layout
-* Dark Mode Support
+* Track Job Applications
+* Store Company & Role Information
+* Track Application Status
+* Applied Date Tracking
+* Interview / Follow-up Date Tracking
+* Job Link Storage
+* Personal Notes
+* Edit & Delete Applications
+
+### 📊 Dashboard Analytics
+
+* Total Tasks
+* Completed Tasks
+* Pending Tasks
+* High Priority Tasks
+* Recent Tasks
+* Upcoming Deadlines
+* Application Statistics
+* Interview Tracking
+* Offer Tracking
+* Rejection Tracking
+
+### 🎨 User Experience
+
+* Responsive Design
+* Dark Theme
+* Light Theme
+* Modern Dashboard Layout
 * Sidebar Navigation
-
-### Database
-
-* MongoDB Atlas Integration
-* User-specific Task Storage
-* Secure Data Access
+* Mobile Friendly UI
 
 ---
 
@@ -52,6 +80,7 @@ PrepTrack AI helps students and job seekers organize their productivity, manage 
 * React Router DOM
 * Axios
 * Framer Motion
+* Recharts
 
 ### Backend
 
@@ -62,61 +91,42 @@ PrepTrack AI helps students and job seekers organize their productivity, manage 
 
 ### Authentication
 
-* JWT (JSON Web Tokens)
+* JWT
 * bcryptjs
 
-### Development Tools
+### Deployment
 
-* Git
-* GitHub
-* Nodemon
-* ESLint
+* Render (Frontend)
+* Render (Backend)
 
 ---
 
-## 📂 Project Structure
+## 📸 Screenshots
 
-```text
-PrepTrack-AI/
-├── client/
-│   ├── src/
-│   │   ├── assets/
-│   │   ├── components/
-│   │   ├── context/
-│   │   ├── hooks/
-│   │   ├── layouts/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   └── utils/
-│   └── public/
-│
-├── server/
-│   ├── src/
-│   │   ├── config/
-│   │   ├── controllers/
-│   │   ├── middleware/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   └── utils/
-│
-├── package.json
-└── README.md
-```
+### Landing Page
+
+![Landing](screenshots/landing.png)
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### Tasks
+
+![Tasks](screenshots/tasks.png)
+
+### Applications
+
+![Applications](screenshots/applications.png)
 
 ---
 
 ## ⚙️ Installation
 
-### Clone Repository
-
 ```bash
 git clone https://github.com/soum-yaa/PrepTrack-AI.git
 cd PrepTrack-AI
-```
 
-### Install Dependencies
-
-```bash
 npm install
 npm install --prefix client
 npm install --prefix server
@@ -145,82 +155,41 @@ VITE_API_URL=http://localhost:5000
 
 ## ▶️ Run Application
 
-Run frontend and backend together:
-
 ```bash
 npm run dev
 ```
 
 Frontend:
 
-```text
+```txt
 http://localhost:5173
 ```
 
 Backend:
 
-```text
+```txt
 http://localhost:5000
 ```
 
-Run individually:
-
-```bash
-npm run client
-npm run server
-```
-
 ---
 
-## 📌 Current Progress
+## 🎯 Project Goals
 
-### Completed
-
-* Authentication System
-* JWT Authorization
-* MongoDB Atlas Integration
-* Task Management CRUD
-* Responsive Dashboard Layout
-* Protected Routes
-* Dark Mode
-
-### In Development
-
-* Dashboard Analytics
-* Productivity Metrics
-* Placement Tracker
-* Application Tracker
-* AI Resume Analyzer
-* AI Interview Preparation
-* AI Study Planner
-
----
-
-## 🎯 Vision
-
-PrepTrack AI aims to become an all-in-one platform for students and professionals by combining:
+PrepTrack AI aims to become an all-in-one platform for:
 
 * Productivity Management
-* Career Planning
 * Placement Preparation
-* AI-powered Guidance
-* Progress Tracking
-
-into a single intelligent dashboard.
+* Career Planning
+* Application Tracking
+* AI-powered Career Assistance
 
 ---
 
 ## 👩‍💻 Author
 
-**Soumya Verma**
+Soumya Verma
 
 B.Tech Electronics & Communication Engineering
 MMMUT Gorakhpur
 
 GitHub: https://github.com/soum-yaa
-
----
-
-## 📄 License
-
-This project is licensed under the MIT License.
